@@ -16,7 +16,8 @@ I plan to do research in ecological/evolutionary genomics and bioinformatics and
 **2. Do you have any coding experience? If yes, please tell us what languages you have coded in and your level of experience.**
 No prior coding experience.
 
-**3. Navigate to the `datascibiol` repository on GitHub. Notice that near the bottom there is a description of the repository. You want something like this on your repository! It is built by making edits to the `README.md` file using RMarkdown. Edit your repository's `README.md` file so that you have an informative description, including your email address. Be creative! You don't need to just copy mine. There are lots of examples online.**  
+**3. Navigate to the `datascibiol` repository on GitHub. Notice that near the bottom there is a description of the repository. You want something like this on your repository! It is built by making edits to the `README.md` file using RMarkdown. Edit your repository's `README.md` file so that you have an informative description, including your email address. Be creative! You don't need to just copy mine. There are lots of examples online.** 
+Done
 
 **4. Please put a link to your GitHub repository below.**
 https://github.com/luicalvarez/BIS15L_W26_laalvarez
