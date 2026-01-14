@@ -11,7 +11,7 @@
 
 <meta name="author" content="Luis Alvarez" />
 
-<meta name="date" content="2026-01-13" />
+<meta name="date" content="2026-01-14" />
 
 <title>Homework 3</title>
 
@@ -376,7 +376,7 @@ display: none;
 
 <h1 class="title toc-ignore">Homework 3</h1>
 <h4 class="author">Luis Alvarez</h4>
-<h4 class="date">2026-01-13</h4>
+<h4 class="date">2026-01-14</h4>
 
 </div>
 
@@ -412,7 +412,16 @@ height_f &lt;- c(29032, 28251, 28169, 27940,27832)
 height_m &lt;- c(8849, 8611, 8586, 8516, 8485)</code></pre>
 <p><strong>2. Combine these vectors into a data frame called
 <code>mountains</code>.</strong></p>
-<pre class="r"><code>mountains &lt;- tibble(name, height_f, height_m)</code></pre>
+<pre class="r"><code>mountains &lt;- tibble(name, height_f, height_m)
+mountains</code></pre>
+<pre><code>## # A tibble: 5 × 3
+##   name          height_f height_m
+##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;
+## 1 mount_everest    29032     8849
+## 2 k2               28251     8611
+## 3 kangchenjunga    28169     8586
+## 4 lhoste           27940     8516
+## 5 makalu           27832     8485</code></pre>
 <p><strong>3. What is the mean height of the mountains in
 feet?</strong></p>
 <pre class="r"><code>mean(mountains$height_f)</code></pre>
@@ -421,23 +430,59 @@ feet?</strong></p>
 what year)? Make a new vector <code>first_climbed</code> and add it to
 the <code>mountains</code> data frame.</strong></p>
 <pre class="r"><code>first_climbed &lt;- c(1953,1954, 1955, 1956,1955)</code></pre>
-<pre class="r"><code>mountains&lt;- tibble(name, height_f, height_m, first_climbed)</code></pre>
+<pre class="r"><code>mountains&lt;- tibble(name, height_f, height_m, first_climbed)
+mountains</code></pre>
+<pre><code>## # A tibble: 5 × 4
+##   name          height_f height_m first_climbed
+##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;
+## 1 mount_everest    29032     8849          1953
+## 2 k2               28251     8611          1954
+## 3 kangchenjunga    28169     8586          1955
+## 4 lhoste           27940     8516          1956
+## 5 makalu           27832     8485          1955</code></pre>
 <p><strong>5. How many times have each of these mountains been climbed?
 Make a new vector <code>summits</code> and add it to the
 <code>mountains</code> data frame.</strong></p>
 <pre class="r"><code>summits &lt;-  c(5656,800, 243, 461, 361)
-mountains&lt;- tibble(name, height_f, height_m, first_climbed, summits)</code></pre>
+mountains&lt;- tibble(name, height_f, height_m, first_climbed, summits)
+mountains</code></pre>
+<pre><code>## # A tibble: 5 × 5
+##   name          height_f height_m first_climbed summits
+##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+## 1 mount_everest    29032     8849          1953    5656
+## 2 k2               28251     8611          1954     800
+## 3 kangchenjunga    28169     8586          1955     243
+## 4 lhoste           27940     8516          1956     461
+## 5 makalu           27832     8485          1955     361</code></pre>
 <p><strong>6. Which mountain has the highest number of fatalities? Make
 a new vector <code>fatalities</code> and add it to the
 <code>mountains</code> data frame.</strong></p>
 <pre class="r"><code>fatalities &lt;-  c(223, 96, 40, 13, 31)
-mountains&lt;- tibble(name, height_f, height_m, first_climbed, summits, fatalities)</code></pre>
+mountains&lt;- tibble(name, height_f, height_m, first_climbed, summits, fatalities)
+mountains</code></pre>
+<pre><code>## # A tibble: 5 × 6
+##   name          height_f height_m first_climbed summits fatalities
+##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+## 1 mount_everest    29032     8849          1953    5656        223
+## 2 k2               28251     8611          1954     800         96
+## 3 kangchenjunga    28169     8586          1955     243         40
+## 4 lhoste           27940     8516          1956     461         13
+## 5 makalu           27832     8485          1955     361         31</code></pre>
 <p><strong>7. What is the fatality rate (i.e., fatalities divided by
 summits) for each mountain? Create a new vector
 <code>fatality_rate</code> and add it to the <code>mountains</code> data
 frame.</strong></p>
 <pre class="r"><code>fatality_rate &lt;-  c(fatalities/summits)
-mountains&lt;- tibble(name, height_f, height_m, first_climbed, summits, fatalities, fatality_rate)</code></pre>
+mountains&lt;- tibble(name, height_f, height_m, first_climbed, summits, fatalities, fatality_rate)
+mountains</code></pre>
+<pre><code>## # A tibble: 5 × 7
+##   name          height_f height_m first_climbed summits fatalities fatality_rate
+##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+## 1 mount_everest    29032     8849          1953    5656        223        0.0394
+## 2 k2               28251     8611          1954     800         96        0.12  
+## 3 kangchenjunga    28169     8586          1955     243         40        0.165 
+## 4 lhoste           27940     8516          1956     461         13        0.0282
+## 5 makalu           27832     8485          1955     361         31        0.0859</code></pre>
 <p><strong>8. Write your data frame to a .csv file called
 <code>mountains_data</code>.</strong></p>
 <pre class="r"><code>write.csv(mountains, &quot;mountains_data.csv&quot;, row.names=FALSE)</code></pre>
@@ -445,6 +490,19 @@ mountains&lt;- tibble(name, height_f, height_m, first_climbed, summits, fataliti
 icon. Then read in your <code>mountains_data.csv</code> file to a new
 object called <code>mountains</code>.</strong></p>
 <pre class="r"><code>mountains &lt;- read.csv(&quot;mountains_data.csv&quot;)</code></pre>
+<pre class="r"><code>mountains</code></pre>
+<pre><code>##            name height_f height_m first_climbed summits fatalities
+## 1 mount_everest    29032     8849          1953    5656        223
+## 2            k2    28251     8611          1954     800         96
+## 3 kangchenjunga    28169     8586          1955     243         40
+## 4        lhoste    27940     8516          1956     461         13
+## 5        makalu    27832     8485          1955     361         31
+##   fatality_rate
+## 1    0.03942716
+## 2    0.12000000
+## 3    0.16460905
+## 4    0.02819957
+## 5    0.08587258</code></pre>
 <p><strong>10. Use a summary function of your choice to show the
 structure of your <code>mountains</code> data frame.</strong></p>
 <pre class="r"><code>summary(mountains)</code></pre>
