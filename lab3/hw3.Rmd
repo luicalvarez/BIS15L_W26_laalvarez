@@ -28,6 +28,7 @@ height_m <- c(8849, 8611, 8586, 8516, 8485)
 **2. Combine these vectors into a data frame called `mountains`.**
 ```{r}
 mountains <- tibble(name, height_f, height_m)
+mountains
 ```
 
 **3. What is the mean height of the mountains in feet?**
@@ -42,25 +43,28 @@ first_climbed <- c(1953,1954, 1955, 1956,1955)
 
 ```{r}
 mountains<- tibble(name, height_f, height_m, first_climbed)
+mountains
 ```
 
 **5. How many times have each of these mountains been climbed? Make a new vector `summits` and add it to the `mountains` data frame.**
 ```{r}
 summits <-  c(5656,800, 243, 461, 361)
 mountains<- tibble(name, height_f, height_m, first_climbed, summits)
-
+mountains
 ```
 
 **6. Which mountain has the highest number of fatalities? Make a new vector `fatalities` and add it to the `mountains` data frame.**
 ```{r}
 fatalities <-  c(223, 96, 40, 13, 31)
 mountains<- tibble(name, height_f, height_m, first_climbed, summits, fatalities)
+mountains
 ```
 
 **7. What is the fatality rate (i.e., fatalities divided by summits) for each mountain? Create a new vector `fatality_rate` and add it to the `mountains` data frame.**
 ```{r}
 fatality_rate <-  c(fatalities/summits)
 mountains<- tibble(name, height_f, height_m, first_climbed, summits, fatalities, fatality_rate)
+mountains
 ```
 
 **8. Write your data frame to a .csv file called `mountains_data`.**
@@ -74,7 +78,7 @@ mountains <- read.csv("mountains_data.csv")
 ```
 
 ```{r}
-
+mountains
 ```
 
 **10. Use a summary function of your choice to show the structure of your `mountains` data frame.**
