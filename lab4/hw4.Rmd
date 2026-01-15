@@ -59,7 +59,7 @@ ggplot(data = msleep,
 
 **7. Is there a relationship between body weight and total sleep time? Add appropriate labels and a title to your plot.**
 ```{r}
-
+names(msleep)
 ```
 
 **8. Which vore type tends to sleep the most? Build a plot to support your answer.**
