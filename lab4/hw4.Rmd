@@ -60,13 +60,45 @@ ggplot(data = msleep,
 **7. Is there a relationship between body weight and total sleep time? Add appropriate labels and a title to your plot.**
 ```{r}
 names(msleep)
+ggplot(data = msleep, 
+       mapping = 
+         aes(x=sleep_total, y=bodywt))+
+  geom_point(mapping = aes(colour = vore,shape = vore))+
+  geom_smooth(method = lm, se=T)+
+   scale_y_log10()+
+  labs(title = "Body Weight vs Total Sleep Time")
 ```
 
 **8. Which vore type tends to sleep the most? Build a plot to support your answer.**
+```{r}
+names(msleep)
+ggplot(data = msleep,
+       mapping = aes(x=mean(msleep$sleep_total)))+
+  geom_bar(mapping = aes(fill = vore))+
+  labs(title = "Average Total Count of Total Sleep Time based On Vore Type")
+```
+
 
 **9. Is there a relationship between brain weight and body weight? Build a plot to support your answer.**
+```{r}
+ggplot(data = msleep,
+       mapping = aes(x=brainwt,y=bodywt))+
+  geom_point(mapping = aes(colour = vore))+
+  scale_y_log10()+
+  labs(title = "Brain Weight vs Body Weight per Vore Type")
+```
+
 
 **10. Build one plot of your choice that provides additional insight into the msleep dataset. Be sure to include appropriate labels and a title.**
+```{r}
+names(msleep)
+ggplot(data = msleep,
+       mapping = aes(x=sleep_total, y=sleep_rem))+
+  geom_point(mapping = aes(colour = vore, shape = vore))+
+  geom_smooth(method = lm, se=T)+
+  labs(title = "Sleep Total vs REM based on Vore type")
+```
+
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
