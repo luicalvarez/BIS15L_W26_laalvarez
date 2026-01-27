@@ -33,21 +33,28 @@ summary(gabon)
 
 **3. Clean the data as necessary following the conventions from lab 6.**
 ```{r}
-
+gabon <- gabon %>%
+  clean_names()
 ```
 
 ```{r}
-
+gabon_clean <- gabon %>%
+  mutate(across(where(is.character),tolower))
+```
+```{r}
+glimpse(gabon_clean)
 ```
 
 **4. Use `mutate()` Change the variables `HuntCat`, `LandUse`, and `TransectID` to factors. Be sure to store the output as a new dataframe and use it for the remaining questions.**
 ```{r}
-
+gabon_clean_f <- gabon_clean %>%
+  select("hunt_cat", "land_use", "transect_id") %>%
+  mutate( "hunt_cat"= factor("hunt_cat"), "land_use" = factor("land_use"), "transect_id" = factor("tansect_id"))
 ```
 
 **5. Make a plot that shows the number of transects for each land use type.**
 ```{r}
-
+gabon_clean_f %>%
 ```
 
 ```{r}
