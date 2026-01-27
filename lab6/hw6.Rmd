@@ -61,7 +61,8 @@ gabon_clean_f %>%
   select("land_use", "transect_id") %>%
 ggplot(data = gabon_clean_f,
        mapping = aes(x=land_use))+
-  geom_bar(mapping = aes(fill = land_use))
+  geom_bar(mapping = aes(fill = land_use))+
+  labs(title = "Land use type per Number of Transects")
 ```
 
 **6. How does vegetation richness compare among land use types?**
@@ -69,7 +70,8 @@ ggplot(data = gabon_clean_f,
 gabon_clean_f %>%
   ggplot(data = gabon_clean_f,
          mapping = aes(x= land_use, y=veg_rich))+
-  geom_boxplot(mapping = aes(fill = land_use))
+  geom_boxplot(mapping = aes(fill = land_use))+
+  labs(title = "Land use type vs Vegetation Richness")
 ```
 
 **7. For which land use type (national parks, logging, or neither) is average all species diversity the greatest?**
@@ -77,7 +79,8 @@ gabon_clean_f %>%
 gabon_clean_f %>%
   ggplot(data = gabon_clean_f,
          mapping = aes(x= land_use, y= diversity_all_species))+
-  geom_boxplot(mapping = aes(fill = land_use))
+  geom_boxplot(mapping = aes(fill = land_use))+
+  labs(title = "Land use type vs Species Diversity")
 ```
 
 **8. Is there a relationship between vegetation richness and mammal species richness?**
@@ -86,23 +89,24 @@ gabon_clean_f %>%
   ggplot(data = gabon_clean_f,
          mapping = aes(x=rich_mammal_species, y=veg_rich))+
   geom_point(mapping = aes(colour = land_use))+
-  geom_smooth(method = lm, se=F)
-#There does not seem to be much of a correlation
+  geom_smooth(method = lm, se=T)+
+  labs(title = "Mammal Speices Diversity vs Vegetation Richness")
+#There is a weak correlation
 ```
 
 **9. Use `filter` to find all transects that have greater than 15 tree species or a breast height diameter between 50 and 60cm.  **
 ```{r}
 names(gabon_clean_f)
 gabon_clean_f %>%
-  select("transect_id", "veg_rich", "veg_stems") %>%
-  filter("veg_rich" >=15 | "veg_stems" %in% c(50,60))
+  select("transect_id", "veg_rich", "veg_dbh") %>%
+  filter("veg_rich" > 15 | "veg_dbh" %in% c(50,60))
 ```
 
 **10.Which transects and land use types have more than 10 tree species and 10 mammal species? Use `arrange()` to sort by the number of tree species.**
 ```{r}
 gabon_clean_f %>%
-  select("transect_id", "veg_rich", "diversity_mammal_species", "land_use") %>%
-  filter("veg_rich" >=10 & "diversity_mammal_species" >= 10) %>%
+  select("transect_id", "veg_rich", "rich_mammal_species", "land_use") %>%
+  filter("veg_rich" >=10 & "rich_mammal_species" > 10) %>%
   arrange(desc("veg_rich"))
 ```
 
