@@ -85,21 +85,25 @@ gabon_clean_f %>%
 gabon_clean_f %>%
   ggplot(data = gabon_clean_f,
          mapping = aes(x=rich_mammal_species, y=veg_rich))+
-  geom_point(mapping = aes(colour = land_use))
+  geom_point(mapping = aes(colour = land_use))+
+  geom_smooth(method = lm, se=F)
+#There does not seem to be much of a correlation
 ```
 
 **9. Use `filter` to find all transects that have greater than 15 tree species or a breast height diameter between 50 and 60cm.  **
 ```{r}
-
-```
-
-```{r}
-
+names(gabon_clean_f)
+gabon_clean_f %>%
+  select("transect_id", "veg_rich", "veg_stems") %>%
+  filter("veg_rich" >=15 | "veg_stems" %in% c(50,60))
 ```
 
 **10.Which transects and land use types have more than 10 tree species and 10 mammal species? Use `arrange()` to sort by the number of tree species.**
 ```{r}
-
+gabon_clean_f %>%
+  select("transect_id", "veg_rich", "diversity_mammal_species", "land_use") %>%
+  filter("veg_rich" >=10 & "diversity_mammal_species" >= 10) %>%
+  arrange(desc("veg_rich"))
 ```
 
 ## Knit and Upload
