@@ -106,9 +106,10 @@ elephants_clean_f %>%
 
 **8. What is the mean, median, and standard deviation for age of males and females included in the study? Separate the results by year of sample collection. Does the sampling look even between years and sexes?**  
 ```{r}
-#elephants_clean_f %>%
-  #filter(sex == "m"| sex=="f") %>%
-  #summarise(mean_age=mean(estimated_age_years))
+elephants_clean_f %>%
+  select(sex, estimated_age_years) %>%
+  filter(sex == "m" | sex=="f") %>%
+  summarise(mean_age=mean(estimated_age_years, na.rm=T), median_age=median(estimated_age_years, na.rm=T), sd_age=sd(estimated_age_years, na.rm=T))
 ```
 
 \
@@ -117,28 +118,57 @@ elephants_clean_f %>%
 \
 
 **9. Is age (independent variable) a positive predictor of tusk length (dependent variable)? Create a plot that shows the relationship between these variables and add a linear model fit line.**  
-\
+```{r}
+ggplot(data = elephants_clean_f, mapping = aes(x=estimated_age_years, y=tusk_length_in_cm))+
+  geom_point(mapping = aes(color = sex))+
+  geom_smooth(method = lm, se=T)+
+  labs(title = "Estimated age in years vs average tusk length in cm")
+#There seems to be a stronger correlation bewteen males males than females
+```
+
 \
 \
 \
 \
 
 **10. Is shoulder height (independent variable) a positive predictor of tusk length (dependent variable)? Create a plot that shows the relationship between these variables and add a linear model fit line.**  
-\
+```{r}
+ggplot(data = elephants_clean_f, mapping = aes(x=shoulder_height_in_cm, y=tusk_length_in_cm))+
+  geom_point(mapping = aes(color = sex))+
+  geom_smooth(method = lm, se=T)+
+  labs(title = "Average shoulder length in cm s vs average tusk length in cm")
+#There does seem to be a strong relationship
+```
+
 \
 \
 \
 \
 
 **11. The authors argue that because poachers preferentially target elephants with large tusks, this has resulted in a decrease in average tusk length. Is this supported by the data? Show your code and calculations below.**  
-\
+```{r}
+ggplot(data = elephants_clean_f, mapping = aes(x=years_of_sample_collection, y=tusk_length_in_cm))+
+  geom_boxplot(mapping = aes(fill = years_of_sample_collection))+
+  geom_smooth(method = lm, se=T)+
+  labs(title = "Average change in elephant tusk length (cm) between 1966-68 and 2005-13")
+#There does seem to be a decline in average tusk length in the elephants sampled
+```
+
 \
 \
 \
 \
 
 **12. Male elephants reach effective sexual maturity at 25 years while females are sexually mature at 12 years. Make a new dataframe that extracts only the males and females at sexual maturity. Then, make a plot that shows the range of tusk length between the two sample periods for these mature elephants.**   
-\
+```{r}
+elephants_clean_f %>%
+  select(sex, estimated_age_years, tusk_length_in_cm, years_of_sample_collection) %>%
+  filter(sex == "m" & estimated_age_years>=25 | sex == "f" & estimated_age_years >= 12) %>%
+  ggplot(mapping = aes(x=years_of_sample_collection, y=tusk_length_in_cm))+
+  geom_boxplot(mapping = aes(fill = years_of_sample_collection))+
+  labs(title = "Average change in the tusk length (cm) of elephants at reproductive age between 1966-68 and 2005-13")
+```
+
 \
 \
 \
