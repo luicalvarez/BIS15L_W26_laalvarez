@@ -57,19 +57,23 @@ sydbeaches_wide
 ```{r}
 sydbeaches_wide %>% 
   pivot_longer(-"Site",
-  names_to = "Data",
+  names_to = "Date",
   values_to = "Enterococci (cfu/100ml)")
 ```
 
 6. We haven't dealt much with dates yet, but separate the date into columns day, month, and year. Do this on the `sydneybeaches_long` data.
 ```{r}
-
+sydbeaches_long2 <- sydbeaches_long %>% 
+  separate(Date, into = c("day", "month", "year"))
+  sydbeaches_long2
 ```
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
 ```{r}
-
-```
+sydbeaches_long2 %>% 
+  select(year, `Enterococci (cfu/100ml)`) %>% 
+  summarise(mean_en=mean(`Enterococci (cfu/100ml)`))
+    ```
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
 ```{r}
