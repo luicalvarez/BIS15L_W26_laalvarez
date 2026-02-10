@@ -30,19 +30,18 @@ This homework loosely follows the tutorial of [R Ladies Sydney](https://rladiess
 1. Start by loading the data `sydneybeaches`. Do some exploratory analysis to get an idea of the data structure.
 ```{r}
 sydbeaches <- read_csv("data/sydneybeaches.csv")
-sydbeaches
+
 ```
 
 2. Are these data "tidy" per the definitions of the tidyverse? How do you know? Are they in wide or long format?
 ```{r}
-
+#The data is not tidy as the data should be moved to a long format so that points like Site or Region are not considered data points.
 ```
 
 3. We are only interested in the variables site, date, and enterococci_cfu_100ml. Make a new object focused on these variables only. Name the object `sydneybeaches_long`
 ```{r}
 sydbeaches_long <- sydbeaches %>% 
   select(Site,Date,`Enterococci (cfu/100ml)`)
-sydbeaches_long
 ```
 
 4. Pivot the data such that the dates are column names and each beach only appears once (wide format). Name the object `sydneybeaches_wide`
@@ -50,7 +49,6 @@ sydbeaches_long
 sydbeaches_wide <- sydbeaches_long %>% 
   pivot_wider(names_from = "Date",
               values_from = "Enterococci (cfu/100ml)")
-sydbeaches_wide
 ```
 
 5. Pivot the data back so that the dates are data and not column names. #
@@ -65,33 +63,41 @@ sydbeaches_wide %>%
 ```{r}
 sydbeaches_long2 <- sydbeaches_long %>% 
   separate(Date, into = c("day", "month", "year"))
-  sydbeaches_long2
 ```
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
 ```{r}
 sydbeaches_long2 %>% 
-  select(year, `Enterococci (cfu/100ml)`) %>% 
+  group_by(year,Site) %>% 
+  select(`Enterococci (cfu/100ml)`) %>% 
   summarise(mean_en=mean(`Enterococci (cfu/100ml)`))
-    ```
+```
+
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
 ```{r}
-
+sydbeaches_wide2 <- sydbeaches_long2 %>% 
+  group_by(year,Site) %>% 
+  select(`Enterococci (cfu/100ml)`) %>% 
+  summarise(mean_en=mean(`Enterococci (cfu/100ml)`)) %>% 
+  pivot_wider(names_from = "Site",
+              values_from = "mean_en")
 ```
 
 9. What was the most polluted beach in 2013?
 ```{r}
-
-```
-
-```{r}
-
+sydbeaches_wide2 %>% 
+  filter(year=="2013")
+  #The most polutted was little bay beach
 ```
 
 10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.  
 ```{r}
-
+sydbeaches_wide2 %>% 
+  ggplot(mapping = aes(x= `Bondi Beach`, y=year))+
+  geom_col(mapping = aes(fill = year)) +
+  labs(title = "Pollution Reccorded in Bondi Beach Between 2013 and 2017")
+#The most pollution recorded in bondi beach was in 2013
 ```
 
 ## Knit and Upload
