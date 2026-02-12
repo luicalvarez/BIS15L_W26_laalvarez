@@ -52,56 +52,118 @@ sharks %>%
 
 3. Are there months of the year when incidents are more likely to occur? Make a plot that shows the total number of incidents by month. Which month has the highest number of incidents?  
 ```{r}
-sharks %>%
-  pivot_wider(names_from = "month",
-              values_from = month)
-  
-  
-```
-
-```{r}
 sharks %>% 
+  select(month) %>% 
+  mutate(month=as.factor(month)) %>%
+  mutate(month=recode(month,
+                      "1"="january",
+                      "2"="febuary",
+                      "3"="march",
+                      "4"="april",
+                      "5"="may",
+                      "6"="june",
+                      "7"="july",
+                      "8"="augest",
+                      "9"="september",
+                      "10"="october",
+                      "11"="november",
+                      "12"="december")) %>%
   ggplot(mapping = aes(x=month,fill= month))+
-  geom_bar()
-```
-
-```{r}
-
+  geom_bar()+
+  coord_flip()+
+  labs(title = "Number of Shark Related injuies in CA Per Month of Year",
+       x="Month",
+       y="Total Injuries")
+#October has the most incidents a year, there is a trend that the late summer and fall months have the most incidents
 ```
 
 4. Is there a time of day when most attacks occur? Make a plot that shows the total number of incidents by time of day. Which time of day has the highest number of incidents?  
 ```{r}
-
+sharks %>% 
+  select(time) %>% 
+  ggplot(mapping = aes(x=time))+
+  geom_bar()+
+  coord_flip()+
+  theme(text=element_text(size=8))+
+  labs(title = "Number of Shark Related Injuires in CA per Time of Day",
+       x="Time",
+       y="Total Injuries")
+#11 Am is when the most attacks occur
 ```
 
 5. How do the number and types of injuries compare by county? Make a table that shows the number of injury types by county. Which county has the highest number incidents? (hint: your table should be in wide format)
 ```{r}
-
+sharks2 <- sharks %>% 
+  select(county,injury) %>% 
+  mutate(injury=as.factor(injury)) %>% 
+  group_by(county, injury) %>% 
+  summarise(count = n()) %>% 
+  summarise(total=sum(count))
+sharks2
+# San Diego has the most injuries
+#I dont understand why this table needs to be in wide format when long does the same?
 ```
 
 6. Use the table from #5 to make a plot that shows the total number of incidents by county.
 ```{r}
-
+sharks2 %>% 
+  ggplot(aes(x=county, y=total)) +
+  geom_col(aes(fill = county))+
+  coord_flip()+
+  labs(title = "Number of Shark Related Injuires Per CA County",
+       x="County",
+       y="Total Injuries")
 ```
 
 7. In the data, `mode` refers to a type of activity. Which activity is associated with the highest number of incidents?
 ```{r}
-
+sharks3 <- sharks %>% 
+  select(mode,injury) %>% 
+  mutate(injury=as.factor(injury)) %>% 
+  group_by(mode, injury) %>% 
+  summarise(count = n()) %>% 
+  summarise(total=sum(count))
+sharks3
+#Surfing has the highest number of shark injuries
 ```
 
 8. Make a plot that compares the number of incidents by activity.
 ```{r}
-
+sharks3 %>% 
+  ggplot(aes(x=mode, y=total)) +
+  geom_col(aes(fill = mode))+
+  coord_flip()+
+  labs(title = "Number of Shark Related Injuries Based On Activity",
+       x="Activity",
+       y="Total Injuries")
 ```
 
 9. Which shark species is involved in the highest number of incidents?  
 ```{r}
-
+sharks4 <- sharks %>% 
+  select(species,injury) %>% 
+  mutate(injury=as.factor(injury)) %>% 
+  group_by(species, injury) %>% 
+  summarise(count = n()) %>% 
+  summarise(total=sum(count))
+sharks4
+#Great Whites are responsibe for the highest number of injuries
 ```
 
 10. Are all incidents involving Great White's fatal? Make a plot that shows the number and types of incidents for Great White's only.  
 ```{r}
-
+sharks %>% 
+  select(species,injury) %>% 
+  filter(species=="White") %>% 
+  mutate(injury=as.factor(injury)) %>% 
+  group_by(species, injury) %>% 
+  summarise(count=n()) %>% 
+  ggplot(aes(x=injury, y=count))+
+  geom_col(aes(fill = injury)) +
+  labs(title = "Type of Injury related to Great White Incidents",
+       x="Injury Type",
+       y="Total Injuries")
+#Not all Great White incidents are fatal but the ones that do occur leave either no injury or major injury
 ```
 
 ## Knit and Upload
