@@ -60,7 +60,12 @@ amniota_no_na %>%
 
 6. Calculate the number of NAs in the `egg_mass_g` column sorted by taxonomic class; i.e. how many NA's are present in the `egg_mass_g` column in birds, mammals, and reptiles? Does this results make sense biologically? How do these results affect your interpretation of NA's?
 ```{r}
-
+amniota_no_na %>% 
+  select(class, egg_mass_g) %>%
+  group_by(class) %>% 
+  miss_var_summary() %>% 
+  arrange(desc(n_miss))
+# Reptiles have the largest number of missing data, I would expect mammals to have more missing data as mammal eggs seem to me to be harder to record and mesure
 ```
 
 ## Knit and Upload
