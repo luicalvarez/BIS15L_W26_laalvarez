@@ -37,30 +37,39 @@ There are many ways to adjust shiny apps for better visual appeal. Let's start w
 
 1. Build an app that allows users to select a mammalian `order` and a variable of interest (body mass, longevity, or gestation length) and then plots the density distribution of that variable for the selected order.
 ```{r, eval=F, echo=T}
-library(shiny)
-
 ui <- fluidPage(
+  
+  titlePanel("Distribution of Gestation Length by Order"),
+  
   selectInput("x",
-              "Select Mammal Order",
-              choices = sort(unique(gestation$order)),
-                          selected="order"),
-                plotOutput("plot", width = "600px", height = "500px")
-    
+              "Select Order",
+              choices=sort(unique(gestation$order)),
+              selected="Afrosoricida"),
+  
+  selectInput("y",
+              "Select Variable",
+              choices = c("bodymass", "longevity", "gestationlength"),
+              selected="gestationlength"),
+  
+  helpText("Thodoris Danis, Antonis Rokas; The evolution of gestation length in eutherian mammals. Proc. Biol. Sci. 1 October 2024; 291 (2033): 20241412. https://doi.org/10.1098/rspb.2024.1412"),
+  
+  plotOutput("plot", width="500px", height="400px")
+  
 )
 
 server <- function(input, output, session) {
+  
   output$plot <- renderPlot({
+    
     gestation %>% 
-      filter(input$x==.data[["order"]]) %>%
-      ggplot(aes(
-                 y= gestationlength,
-                 fill = order))+
-      geom_boxplot(alpha=.75)+
-      labs(title = "Gestation Length by Mammal Order",
-           y="Gestation Length",
-           fill="Gestation Length")+
-      theme_classic()
+      filter(input$x==.data[["order"]]) %>% 
+      ggplot(aes(.data[[input$y]]))+
+      geom_density(fill="steelblue",
+                   color="black",
+                   alpha=0.6)+
+      theme_minimal()
   })
+  
 }
 
 shinyApp(ui, server)
